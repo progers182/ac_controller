@@ -27,7 +27,7 @@ if ($id > -1 && !empty($table)) {
 
     if ($insert_request->create($data)) {
         echo json_encode([
-            'message' => 'Data received'
+            'message' => $data
         ]);
     } else {
         echo json_encode([
