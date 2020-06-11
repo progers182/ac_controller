@@ -29,7 +29,7 @@ class Commands extends DbConn {
         $stmt = $this->conn->prepare($query);
 
         // clean
-        $this->command = htmlspecialchars(strip_tags($data->command));
+        $this->command = intval(htmlspecialchars(strip_tags($data->command)));
         $this->device_id = htmlspecialchars(strip_tags($data->device_id));
 
         // bind
