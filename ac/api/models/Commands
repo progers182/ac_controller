@@ -23,7 +23,7 @@ class Commands extends DbConn {
 
     public function create($data) {
         $query = 'INSERT INTO `commands`
-        SET command = :command, device_id = :device_id;
+        SET update_time = CURRENT_TIMESTAMP() command = :command, device_id = :device_id;
             ';
 
         $stmt = $this->conn->prepare($query);
