@@ -1,6 +1,7 @@
 <?php
 
 require_once 'DbConn.php';
+include_once 'Devices.php';
 
 class Commands extends DbConn {
     private $command;
@@ -17,11 +18,12 @@ class Commands extends DbConn {
     }
 
     public function read_single() {
-        // TODO: Implement read_single() method.
+        return $this->getDeviceId('172.0.0.1');
     }
 
 
     public function create($data) {
+        $this->device_id = $this->getDeviceId($data->ip_address); // TODO add logic to check to see if ip is set. If not, prompt user to set name (which will create internal_id, set name, and ip_address in device_ids table
         $query = 'INSERT INTO `commands`
         SET update_time = CURRENT_TIMESTAMP(), command = :command, device_id = :device_id;
             ';
@@ -30,13 +32,18 @@ class Commands extends DbConn {
 
         // clean
         $this->command = htmlspecialchars(strip_tags($data->command));
-        $this->device_id = htmlspecialchars(strip_tags($data->device_id));
 
         // bind
         $stmt->execute([
             ':command' => $this->command,
-            ':device_id' => $this->device_id
+            ':device_id' => $this->device_id[0]
         ]);
         return true;
+    }
+
+    public function getDeviceId($address) {
+        $device = new Devices($this->conn);
+
+        return $device->getDeviceId($address)->fetch(PDO::FETCH_NUM);
     }
 }

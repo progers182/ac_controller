@@ -22,14 +22,13 @@ class Devices extends DbConn {
         return $stmt;
     }
 
-
     public function create($data) {
         $stmt = $this->read_single();
 
         $num = $stmt->fetch(PDO::FETCH_NUM)[0] + 1;
 
-        $query = 'INSERT INTO `device_ids`
-        SET  internal_id = :internal_id, ip_address = INET_ATON(:ip_address), username = :username, is_blocked = :is_blocked
+        $query = 'INSERT IGNORE INTO `device_ids`
+        SET internal_id = :internal_id, ip_address = INET_ATON(:ip_address), username = :username, is_blocked = :is_blocked
             ';
 
         $stmt = $this->conn->prepare($query);
@@ -49,4 +48,19 @@ class Devices extends DbConn {
         ]);
         return true;
     }
+
+    public function getDeviceId($addr) {
+        $query = 'SELECT internal_id FROM `device_ids`
+       WHERE ip_address = INET_ATON(:ip_address)
+            ';
+
+        $stmt = $this->conn->prepare($query);
+        $this->ip_address = htmlspecialchars(strip_tags($addr));
+        $stmt->execute([
+            ':ip_address' => $this->ip_address
+        ]);
+        return $stmt;
+
+    }
+
 }

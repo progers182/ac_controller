@@ -1,7 +1,6 @@
 <?php
 abstract class DbConn {
 
-    protected $table = '';
     protected $conn;
 
     public function __construct(PDO $db) {

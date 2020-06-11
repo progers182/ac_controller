@@ -26,10 +26,10 @@ if ($id > -1 && !empty($table)) {
 
     // Get posted data
     $data = json_decode(file_get_contents("php://input"));
-    $ipaddress = getenv('REMOTE_ADDR');
+    $data->ip_address = getenv('REMOTE_ADDR'); // "172.0.0.1" for testing
     if ($insert_request->create($data)) {
         echo json_encode([
-            'message' => $ipaddress,
+            'message' => $data,
         ]);
     } else {
         echo json_encode([
