@@ -29,8 +29,8 @@ class Commands extends DbConn {
         $stmt = $this->conn->prepare($query);
 
         // clean
-        $this->command = intval(htmlspecialchars(strip_tags($data->command)));
-        $this->device_id = intval(htmlspecialchars(strip_tags($data->device_id)));
+        $this->command = htmlspecialchars(strip_tags($data->command));
+        $this->device_id = htmlspecialchars(strip_tags($data->device_id));
 
         // bind
         $stmt->execute([
