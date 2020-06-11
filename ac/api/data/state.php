@@ -17,4 +17,4 @@ $post = new ArduinoState($conn);
 
 $result = $post->read_single();
 
-echo json_encode($result->fetch(PDO::FETCH_NUM));
+echo json_encode($result->fetch(PDO::FETCH_ASSOC));
