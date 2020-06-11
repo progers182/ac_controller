@@ -29,8 +29,7 @@ if ($id > -1 && !empty($table)) {
     $ipaddress = getenv('REMOTE_ADDR');
     if ($insert_request->create($data)) {
         echo json_encode([
-            'message' => $data,
-            'ip' => $ipaddress
+            'message' => $ipaddress,
         ]);
     } else {
         echo json_encode([
