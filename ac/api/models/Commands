@@ -1,23 +1,42 @@
 <?php
-class Commands {
-    private $conn;
-    private $table = 'commands';
 
-    public $timestamp;
-    public $command;
-    public $device_id;
+require_once 'DbConn.php';
 
-    public function __construct(PDO $db) {
-        $this->conn = $db;
-    }
+class Commands extends DbConn {
+    private $command;
+    private $device_id;
 
     public function read() {
-        $query = 'SELECT * FROM ' . $this->table;
+        $query = 'SELECT * FROM `commands`;';
 
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public function read_single() {
+        // TODO: Implement read_single() method.
+    }
+
+
+    public function create($data) {
+        $query = 'INSERT INTO `commands`
+        SET command = :command, device_id = :device_id;
+            ';
+
+        $stmt = $this->conn->prepare($query);
+
+        // clean
+        $this->command = htmlspecialchars(strip_tags($data->command));
+        $this->device_id = htmlspecialchars(strip_tags($data->device_id));
+
+        // bind
+        $stmt->execute([
+            ':command' => $this->command,
+            ':device_id' => $this->device_id
+        ]);
+        return true;
     }
 }

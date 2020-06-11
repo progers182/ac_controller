@@ -12,7 +12,7 @@ $db = new Database();
 $conn = $db->connect();
 
 
-$post = new ArduinoState($conn,  'arduino_state');
+$post = new ArduinoState($conn,  'device_ids');
 
 $result = $post->read();
 

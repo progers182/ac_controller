@@ -1,22 +1,30 @@
 <?php
-class StateIds {
-    private $conn;
-    private $table = 'state_ids';
 
-    public $state;
-    public $state_id;
+require_once 'DbConn.php';
 
-    public function __construct(PDO $db) {
-        $this->conn = $db;
-    }
+class States extends DbConn {
+    private $state;
+    private $state_id;
 
     public function read() {
-        $query = 'SELECT * FROM ' . $this->table;
+        $query = 'SELECT * FROM `state_ids`;';
 
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public function read_single() {
+        // TODO: Implement read_single() method.
+    }
+
+    /**
+     * state_ids table should not be changed
+     *
+     */
+    public function create($data) {
+        return false;
     }
 }

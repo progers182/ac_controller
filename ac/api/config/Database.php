@@ -5,6 +5,13 @@ class Database
     private $environment = '';
     private $conn;
 
+    private $TABLES = [
+        1 => 'arduino_state',
+        2 => 'commands',
+        3 => 'device_ids',
+        4 => 'state_ids'
+    ];
+
     private $host ='';
     private $db_name ='';
     private $user ='';
@@ -50,5 +57,12 @@ class Database
             $this->user = $config['user_local'];
             $this->pwd = $config['pwd_local'];
         }
+    }
+
+    public function getTableName($id) {
+        if (isset($this->TABLES[$id])) {
+            return $this->TABLES[$id];
+        }
+        return '';
     }
 }
