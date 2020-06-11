@@ -1,10 +1,12 @@
 <?php
 
+
+
 // Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods,Authorization, X-Requested-With');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods,Authorization, X-Requested-With, X-Forwarded-For');
 
 include_once '../config/Database.php';
 include_once '../models/ArduinoState.php';
@@ -24,10 +26,11 @@ if ($id > -1 && !empty($table)) {
 
     // Get posted data
     $data = json_decode(file_get_contents("php://input"));
-
+    $ipaddress = getenv('REMOTE_ADDR');
     if ($insert_request->create($data)) {
         echo json_encode([
-            'message' => $data
+            'message' => $data,
+            'ip' => $ipaddress
         ]);
     } else {
         echo json_encode([
