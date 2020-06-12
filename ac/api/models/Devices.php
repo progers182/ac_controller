@@ -30,7 +30,7 @@ class Devices extends DbConn {
 
         // return id password wasn't passed or if it is incorrect
         if (! isset($data->password) || ($data->password !== $config["auth_pwd"])) {
-            return false;
+            return ["error" => "incorrect password"];
         }
 
         $stmt = $this->getNewId();
@@ -56,7 +56,9 @@ class Devices extends DbConn {
             ':username' => $this->username,
             ':is_blocked' => $this->is_blocked
         ]);
-        return true;
+        return [
+            "authenticated" => true
+        ];
     }
 
     public function get_device($addr, $fields = []) {

@@ -19,14 +19,11 @@ $auth = isset($_GET["auth"]) ? $_GET["auth"] : false;
 if ($auth) {
     $data = json_decode(file_get_contents("php://input"));
     $data->ip_address = $ip_address;
-    if ($device->create($data)) {
-        echo json_encode([
-            "authenticated" => true
-        ]);
+    $response = $device->create($data);
+    if (isset($response["authenticated"])) {
+        echo json_encode($response);
     } else {
-        echo json_encode([
-            "authenticated" => false
-        ]);
+        echo json_encode($response);
     }
 } else {
     $data = $device->get_device($ip_address, ["internal_id"]);
