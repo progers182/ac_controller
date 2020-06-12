@@ -20,15 +20,18 @@ if ($auth) {
     $data = json_decode(file_get_contents("php://input"));
     $data['ip_address'] = $ip_address;
     $device->create($data);
+    echo json_encode([
+        "authenticated" => "true"
+    ]);
 } else {
     $data = $device->get_device($ip_address, ["internal_id"]);
     if (isset($data["internal_id"]) && $data["internal_id"] > 0) {
         echo json_encode([
-            "authenticated" => true
+            "authenticated" => "true"
         ]);
     } else {
         echo json_encode([
-            "authenticated" => false
+            "authenticated" => "false"
         ]);
 
     }
