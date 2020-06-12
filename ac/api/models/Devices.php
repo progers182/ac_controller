@@ -80,10 +80,12 @@ class Devices extends DbConn {
                 $data[$field] = $row[$field];
             }
         }
-        if ($data["is_blocked"] == 0) {
-            return $data; // finish abstracting this function
-        }
-        else return false;
-    }
 
+        if ($data["is_blocked"] == 1) {
+            return ["error" => "You are not allowed to access this service"];
+        }
+        else return $data;
+    }
 }
+
+
