@@ -77,7 +77,7 @@ class Devices extends DbConn {
         }
 
         if (! $stmt->rowCount() > 0 ) {
-            return ["DNE" => "DNE"];
+            return json_encode(["DNE" => "DNE"]);
 
         }
 
