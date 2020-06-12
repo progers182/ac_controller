@@ -23,7 +23,6 @@ if ($num > 0) {
     $post_arr['data'] = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-
         $post_item = [
             'status_time' => $row['status_time'],
             'curr_state' => $row['curr_state'],
@@ -32,8 +31,6 @@ if ($num > 0) {
         ];
 
         array_push($post_arr['data'], $post_item);
-
-
     }
 
     echo json_encode($post_arr);

@@ -9,21 +9,24 @@ class Devices extends DbConn {
     private $is_blocked;
 
     public function read() {
-        $query =  'SELECT COUNT(*) FROM `device_ids`;';
+    }
+
+    private function getNewId() {
+        $query = 'SELECT COUNT(*) FROM `device_ids`;';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    public function read_single() {
-        $query =  'SELECT COUNT(*) FROM `device_ids`;';
+    public function read_single() { // cou
+        $query = 'SELECT COUNT(*) FROM `device_ids`;';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
     public function create($data) {
-        $stmt = $this->read_single();
+        $stmt = $this->getNewId();
 
         $num = $stmt->fetch(PDO::FETCH_NUM)[0] + 1;
 
@@ -49,9 +52,9 @@ class Devices extends DbConn {
         return true;
     }
 
-    public function getDeviceId($addr) {
-        $query = 'SELECT internal_id FROM `device_ids`
-       WHERE ip_address = INET_ATON(:ip_address)
+    public function get_device($addr, $fields = []) {
+        $query = 'SELECT * FROM `device_ids`
+        WHERE ip_address = INET_ATON(:ip_address)
             ';
 
         $stmt = $this->conn->prepare($query);
@@ -59,8 +62,18 @@ class Devices extends DbConn {
         $stmt->execute([
             ':ip_address' => $this->ip_address
         ]);
-        return $stmt;
+        $rows = [];
+        $data = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            foreach ($fields as $field) {
+                $rows[$field] = $stmt[$field];
+            }
 
+        array_push($data['data'], $rows);
+        }
+
+
+        return $data; // finish abstracting this function
     }
 
 }

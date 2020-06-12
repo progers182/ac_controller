@@ -36,7 +36,7 @@ class Commands extends DbConn {
         // bind
         $stmt->execute([
             ':command' => $this->command,
-            ':device_id' => $this->device_id[0]
+            ':device_id' => $this->device_id
         ]);
         return true;
     }
@@ -44,6 +44,6 @@ class Commands extends DbConn {
     public function getDeviceId($address) {
         $device = new Devices($this->conn);
 
-        return $device->getDeviceId($address)->fetch(PDO::FETCH_NUM);
+        return $device->get_device($address);
     }
 }
