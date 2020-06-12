@@ -13,12 +13,12 @@ $db = new Database();
 $conn = $db->connect();
 
 $device = new Devices($conn);
-$ip_address = getenv('REMOTE_ADDR'); // "172.0.0.1" for testing
+$ip_address = /*getenv('REMOTE_ADDR'); */  "172.0.0.1"; // for testing
 
 $auth = isset($_GET["auth"]) ? $_GET["auth"] : false;
 if ($auth) {
     $data = json_decode(file_get_contents("php://input"));
-    $data['ip_address'] = $ip_address;
+    $data->ip_address = $ip_address;
     $device->create($data);
     echo json_encode([
         "authenticated" => "true"

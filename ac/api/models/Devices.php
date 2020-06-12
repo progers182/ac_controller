@@ -40,7 +40,7 @@ class Devices extends DbConn {
         $this->internal_id = $num;
         $this->ip_address = htmlspecialchars(strip_tags($data->ip_address));
         $this->username = htmlspecialchars(strip_tags($data->username));
-        $this->is_blocked = htmlspecialchars(strip_tags($data->is_blocked));
+        $this->is_blocked = 0;
 
         // bind
         $stmt->execute([
@@ -62,14 +62,11 @@ class Devices extends DbConn {
         $stmt->execute([
             ':ip_address' => $this->ip_address
         ]);
-        $rows = [];
         $data = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             foreach ($fields as $field) {
-                $rows[$field] = $stmt[$field];
+                $data[$field] = $row[$field];
             }
-
-        array_push($data['data'], $rows);
         }
 
 
