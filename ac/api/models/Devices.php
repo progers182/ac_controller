@@ -26,6 +26,13 @@ class Devices extends DbConn {
     }
 
     public function create($data) {
+        $config = parse_ini_file("../config/config.ini");
+
+        // return id password wasn't passed or if it is incorrect
+        if (! isset($data->password) || ($data->password !== $config["auth_pwd"])) {
+            return false;
+        }
+
         $stmt = $this->getNewId();
 
         $num = $stmt->fetch(PDO::FETCH_NUM)[0] + 1;
@@ -63,14 +70,20 @@ class Devices extends DbConn {
             ':ip_address' => $this->ip_address
         ]);
         $data = [];
+        // require is_blocked in $fields
+        if (!in_array("is_blocked", $fields)) {
+            $fields[] = "is_blocked";
+        }
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             foreach ($fields as $field) {
                 $data[$field] = $row[$field];
             }
         }
-
-
-        return $data; // finish abstracting this function
+        if ($data["is_blocked"] == 0) {
+            return $data; // finish abstracting this function
+        }
+        else return false;
     }
 
 }

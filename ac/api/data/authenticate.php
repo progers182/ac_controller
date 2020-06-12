@@ -38,6 +38,5 @@ if ($auth) {
         echo json_encode([
             "authenticated" => false
         ]);
-
     }
 }
