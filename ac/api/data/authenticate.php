@@ -13,7 +13,7 @@ $db = new Database();
 $conn = $db->connect();
 
 $device = new Devices($conn);
-$ip_address = /*getenv('REMOTE_ADDR'); */  "172.0.0.1"; // for testing
+$ip_address = getenv('REMOTE_ADDR');  // "172.0.0.1"; // for testing
 
 $auth = isset($_GET["auth"]) ? $_GET["auth"] : false;
 if ($auth) {
