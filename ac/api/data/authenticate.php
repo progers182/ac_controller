@@ -36,7 +36,7 @@ if ($auth) {
         ]);
     } else {
         echo json_encode([
-            "error" => $data["error"]
+            $data
         ]);
     }
 }

@@ -70,9 +70,15 @@ class Devices extends DbConn {
             ':ip_address' => $this->ip_address
         ]);
         $data = [];
+
         // require is_blocked in $fields
         if (!in_array("is_blocked", $fields)) {
             $fields[] = "is_blocked";
+        }
+
+        if (! $stmt->rowCount() > 0 ) {
+            return ["DNE" => "DNE"];
+
         }
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
