@@ -16,9 +16,10 @@ class ArduinoState extends DbConn {
     }
 
     public function read_single() {
-        $query = 'SELECT state FROM `state_ids` 
-                JOIN `arduino_state` AS s
-                ORDER BY s.`status_time` DESC
+        $query = 'SELECT `state` FROM `state_ids` AS s
+                JOIN `arduino_state` AS a
+                WHERE s.state_id = a.curr_state
+                ORDER BY a.status_time DESC
                 LIMIT 1';
 
         $stmt = $this->conn->prepare($query);
