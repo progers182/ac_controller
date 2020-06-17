@@ -18,12 +18,20 @@ class Commands extends DbConn {
     }
 
     public function read_single() {
-        return $this->getDeviceId('172.0.0.1');
+        $query = 'SELECT * FROM `commands`
+                    ORDER BY `commands`.update_time DESC 
+                    LIMIT 1;';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
     }
 
 
     public function create($data) {
-        $this->device_id = $this->getDeviceId($data->ip_address); // TODO add logic to check to see if ip is set. If not, prompt user to set name (which will create internal_id, set name, and ip_address in device_ids table
+        $this->device_id = $this->getDeviceId($data->ip_address);
         $query = 'INSERT INTO `commands`
         SET update_time = CURRENT_TIMESTAMP(), command = :command, device_id = :device_id;
             ';
@@ -45,5 +53,20 @@ class Commands extends DbConn {
         $device = new Devices($this->conn);
 
         return $device->get_device($address, ["internal_id"])["internal_id"];
+    }
+
+    public function isStateOld() {
+        $query = 'SELECT * FROM `arduino_state`
+                    ORDER BY `arduino_state`.status_time DESC 
+                    LIMIT 1;';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+        $ard_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $cmd_data = $this->read_single()->fetch(PDO::FETCH_ASSOC);
+
+        return ($cmd_data['command'] == $ard_data['curr_state']);
     }
 }
