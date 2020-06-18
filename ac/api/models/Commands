@@ -55,7 +55,7 @@ class Commands extends DbConn {
         return $device->get_device($address, ["internal_id"])["internal_id"];
     }
 
-    public function isStateOld() {
+    public function queueState() {
         $query = 'SELECT * FROM `arduino_state`
                     ORDER BY `arduino_state`.status_time DESC 
                     LIMIT 1;';
@@ -66,7 +66,12 @@ class Commands extends DbConn {
         $ard_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $cmd_data = $this->read_single()->fetch(PDO::FETCH_ASSOC);
+        $isUpdated = $cmd_data['command'] == $ard_data['curr_state'];
+        return [
+            "isUpdated" => $isUpdated,
+            "curr_state" => $ard_data['curr_state'],
+            "command" => $cmd_data['command']
 
-        return ($cmd_data['command'] == $ard_data['curr_state']);
+        ];
     }
 }

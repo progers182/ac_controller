@@ -15,9 +15,6 @@ $conn = $db->connect();
 
 $cmd = new Commands($conn);
 
-echo json_encode([
-    "isUpdated" =>
-    $result = $cmd->isStateOld()
-]);
+echo json_encode($cmd->queueState());
 
 
