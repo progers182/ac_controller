@@ -70,8 +70,8 @@ class Commands extends DbConn {
         return [
             "isUpdated" => $isUpdated,
             "curr_state" => $ard_data['curr_state'],
-            "command" => $cmd_data['command']
-
+            "command" => $cmd_data['command'],
+            "device_id" => $cmd_data['device_id']
         ];
     }
 }

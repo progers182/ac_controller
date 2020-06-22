@@ -6,7 +6,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods,Authorization, X-Requested-With, X-Forwarded-For');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With, X-Forwarded-For');
 
 include_once '../config/Database.php';
 include_once '../models/ArduinoState.php';
@@ -36,7 +36,6 @@ if ($id > -1 && !empty($table)) {
             'message' => 'Error'
         ]);
     }
-
 
 } else {
     echo json_encode([
