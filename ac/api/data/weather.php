@@ -2,7 +2,26 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$url = 'api.openweathermap.org/data/2.5/weather?q=provo,ut,usa&appid=cbbdaab56e1b8f479d7dcd5402126854';
+$apiKey = 'o2U4lnXNsBxl8YjEWSlbpSh4TihHcpWa';
+$provoId = '5f10b4e78404db0019d7b992';
+
+$url = 'https://api.climacell.co/v3/weather/realtime?location_id=' . $provoId . '&unit_system=us';
+// data to request
+$fields = [
+    'temp',
+    'feels_like'
+];
+
+$url .= '&fields=';
+
+foreach ($fields as $field) {
+    $url .= $field;
+    $url .= '%2C';
+}
+// trim last html encoded comma
+$url = substr($url, 0, -3);
+
+$url .= '&apikey=' . $apiKey;
 
 $ch = curl_init();
 //Set the URL that you want to GET by using the CURLOPT_URL option.
@@ -20,9 +39,10 @@ curl_close($ch);
 // decode json string
 $data = json_decode($data, true);
 // return relevant data
-echo (json_encode(
+echo(json_encode(
     [
-        'temp' => $data['main']['temp'],
-        'feels_like' => $data['main']['feels_like'],
+        'temp' => $data['temp']['value'],
+        'feels_like' => $data['feels_like']['value'],
+        'observation_time' => $data['observation_time']['value']
     ]
 ));
