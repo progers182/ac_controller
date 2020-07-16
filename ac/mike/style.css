@@ -1,0 +1,11 @@
+body {
+    background: cornflowerblue;
+}
+
+input, label {
+    margin: 5px 5px;
+}
+
+input[type=submit] {
+    margin-top: 15px;
+}

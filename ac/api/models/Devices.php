@@ -26,7 +26,7 @@ class Devices extends DbConn {
     }
 
     public function create($data) {
-        $config = parse_ini_file("../config/config.ini");
+        $config = parse_ini_file("../config/db_config.ini");
 
         // return id password wasn't passed or if it is incorrect
         if (! isset($data->password) || ($data->password !== $config["auth_pwd"])) {

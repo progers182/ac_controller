@@ -38,8 +38,8 @@ class Database
      *
      */
     private function setEnvironmentVars() {
-        // import config.ini
-        $config = parse_ini_file("config.ini");
+        // import db_config.ini
+        $config = parse_ini_file("db_config.ini");
         // get current domain
         $this->environment = strval($_SERVER['SERVER_NAME']);
 
