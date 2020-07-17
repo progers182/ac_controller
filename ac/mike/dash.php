@@ -22,6 +22,7 @@ curl_close($ch);
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div>Hello Mike!</div>
 <br>
 <h2>Current State</h2>
@@ -29,7 +30,6 @@ curl_close($ch);
     <h3>Current swamp cooler state is: <em><?php echo $data->state; ?></em> </h3>
 
 </div>
-<br>
 <h2>Select New State</h2>
 <form action="../api/data/web.php" method="post">
     <div>
