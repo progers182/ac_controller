@@ -39,10 +39,13 @@ curl_close($ch);
 // decode json string
 $data = json_decode($data, true);
 // return relevant data
+
+$temp = round($data['temp']['value'], 2);
+$feel = round($data['feels_like']['value'], 2);
 echo(json_encode(
     [
-        'temp' => round($data['temp']['value'], 2),
-        'feels_like' => round($data['feels_like']['value'], 2),
+        'temp' => $temp,
+        'feels_like' => $feel,
         'observation_time' => $data['observation_time']['value']
     ]
 ));
