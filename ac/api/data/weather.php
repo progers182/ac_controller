@@ -41,8 +41,8 @@ $data = json_decode($data, true);
 // return relevant data
 echo(json_encode(
     [
-        'temp' => $data['temp']['value'],
-        'feels_like' => $data['feels_like']['value'],
+        'temp' => round($data['temp']['value'], 2),
+        'feels_like' => round($data['feels_like']['value'], 2),
         'observation_time' => $data['observation_time']['value']
     ]
 ));
