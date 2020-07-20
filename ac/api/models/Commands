@@ -31,12 +31,16 @@ class Commands extends DbConn {
 
 
     public function create($data, $web = null) {
-        if (! $web) {
+        if (key_exists('device_id', $data)) {
+            $this->device_id = $data->device_id;
+        }
+        else if (! $web) {
             $this->device_id = $this->getDeviceId($data->ip_address);
         }
         else {
             $this->device_id = -1;
         }
+
         $query = 'INSERT INTO `commands`
         SET update_time = CURRENT_TIMESTAMP(), command = :command, device_id = :device_id;
             ';

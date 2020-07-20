@@ -2,10 +2,9 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$apiKey = 'o2U4lnXNsBxl8YjEWSlbpSh4TihHcpWa';
-$provoId = '5f10b4e78404db0019d7b992';
+$config = parse_ini_file("db_config.ini");
 
-$url = 'https://api.climacell.co/v3/weather/realtime?location_id=' . $provoId . '&unit_system=us';
+$url = 'https://api.climacell.co/v3/weather/realtime?location_id=' . $config['provo_id'] . '&unit_system=us';
 // data to request
 $fields = [
     'temp',
@@ -21,7 +20,7 @@ foreach ($fields as $field) {
 // trim last html encoded comma
 $url = substr($url, 0, -3);
 
-$url .= '&apikey=' . $apiKey;
+$url .= '&apikey=' . $config['weather_key'];
 
 $ch = curl_init();
 //Set the URL that you want to GET by using the CURLOPT_URL option.
