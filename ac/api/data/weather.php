@@ -39,11 +39,8 @@ curl_close($ch);
 $data = json_decode($data, true);
 // return relevant data
 
-$temp = doubleval($data['temp']['value']);
-$feel = doubleval($data['feels_like']['value']);
-
-round($temp, 2);
-round($feel, 2);
+$temp = number_format($data['temp']['value'], 2);
+$feel = number_format($data['feels_like']['value'], 2);
 echo(json_encode(
     [
         'temp' => $temp,
