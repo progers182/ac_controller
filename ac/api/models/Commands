@@ -76,11 +76,14 @@ class Commands extends DbConn {
 
         $cmd_data = $this->read_single()->fetch(PDO::FETCH_ASSOC);
         $is_updated = $cmd_data['command'] == $ard_data['curr_state'];
+
+        date_default_timezone_set('America/Denver');
         return [
             "is_updated" => $is_updated,
             "curr_state" => $ard_data['curr_state'],
             "command" => $cmd_data['command'],
-            "device_id" => $cmd_data['device_id']
+            "device_id" => $cmd_data['device_id'],
+            "curr_hour" => date('H')
         ];
     }
 }

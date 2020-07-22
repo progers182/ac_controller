@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$config = parse_ini_file("db_config.ini");
+$config = parse_ini_file("config.ini");
 
 $url = 'https://api.climacell.co/v3/weather/realtime?location_id=' . $config['provo_id'] . '&unit_system=us';
 // data to request
