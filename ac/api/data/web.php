@@ -5,11 +5,11 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With, X-Forwarded-For');
 
-include_once '../config/Database.php';
+include_once '../config/ACDatabase.php';
 include_once '../models/Commands';
 
 // Connect to DB
-$db = new Database();
+$db = new ACDatabase();
 $conn = $db->connect();
 
 $insert_request = new Commands($conn);

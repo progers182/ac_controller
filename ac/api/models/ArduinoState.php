@@ -1,5 +1,5 @@
 <?php
-require_once 'DbConn.php';
+require_once '../../../abstract_db/DbConn.php';
 
 class ArduinoState extends DbConn {
     private $curr_state;

@@ -1,6 +1,7 @@
 <?php
 
-require_once 'DbConn.php';
+require_once '../../../abstract_db/DbConn.php';
+
 
 class Devices extends DbConn {
     private $internal_id;

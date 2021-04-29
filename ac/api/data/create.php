@@ -5,14 +5,14 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With, X-Forwarded-For');
 
-include_once '../config/Database.php';
+include_once '../config/ACDatabase.php';
 include_once '../models/ArduinoState.php';
 include_once '../models/Commands';
 include_once '../models/Devices.php';
 include_once '../models/States.php';
 
 // Connect to DB
-$db = new Database();
+$db = new ACDatabase();
 $conn = $db->connect();
 
 $id = isset($_GET['table']) ? $_GET['table'] : -1;

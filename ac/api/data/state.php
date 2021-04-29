@@ -4,12 +4,12 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-include_once '../config/Database.php';
+include_once '../config/ACDatabase.php';
 include_once '../models/ArduinoState.php';
 include_once '../models/Devices.php';
 
 // Connect to DB
-$db = new Database();
+$db = new ACDatabase();
 $conn = $db->connect();
 
 
